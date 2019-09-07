@@ -18,8 +18,8 @@
         <td><%= link_to "#{post.title}", post %></td>
         <td><%= post.user.name %></td>
         <td><%= post.comments.count %></td>
-        <td><%= link_to 'Editar', edit_post_path(post), class: 'btn btn-sm btn-success' %></td>
-        <td><%= link_to 'Eliminar', post, method: :delete, data: { confirm: 'Estás seguro que deseas eliminar el Post?' }, class: 'btn btn-sm btn-danger' %></td>
+        <td><%= link_to 'Editar', edit_post_path(post), class: 'btn btn-sm btn-success' if can? :update, post %></td>
+        <td><%= link_to 'Eliminar', post, method: :delete, data: { confirm: 'Estás seguro que deseas eliminar el Post?' }, class: 'btn btn-sm btn-danger' if can? :destroy, post %></td>
       </tr>
     <% end %>
   </tbody>

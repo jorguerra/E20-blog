@@ -13,6 +13,7 @@
 </div>
 <div class="row">
 	<div class="col-md-4">
+		<% if can? :create, Comment %>
 		<div class="well well-sm">
 			<legend>Comentar:</legend>
 			<%= form_with(model: [@post, Comment.new], local: true, html: { class: 'form-horizontal' }) do |f| %>
@@ -23,8 +24,8 @@
 				</div>
 				<%= f.submit 'Comentar', class: 'btn btn-primary' %>
 			<% end %>
-			  
 		</div>
+		<% end %>
 	</div>
 	<div class="col-md-8">
 		<% counter = 0 %>
@@ -35,7 +36,7 @@
 				<br>
 				<%= comment.content %>
 				<div class="text-right">
-					<%= link_to 'Eliminar', post_comment_path(@post,comment), method: :delete, data: { confirm: 'Estás seguro que deseas eliminar el Comentario?' }, class: 'btn btn-xs btn-danger' %>
+					<%= link_to 'Eliminar', post_comment_path(@post,comment), method: :delete, data: { confirm: 'Estás seguro que deseas eliminar el Comentario?' }, class: 'btn btn-xs btn-danger' if can? :destroy, comment %>
 				</div>
 			</div>
 		<% end %>
