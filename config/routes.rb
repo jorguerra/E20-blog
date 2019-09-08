@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  get 'dashboards/index', as: 'dashboard'
+  put 'dashboards/update', as: 'dashboard_update'
+
 	resources :posts do
 		resources :comments, only: [:create, :destroy]
 	end

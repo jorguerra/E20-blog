@@ -1,0 +1,44 @@
+<h1>Dashboard</h1>
+
+<% if notice %>
+<p class="alert alert-success"><%= notice %></p>
+<% elsif alert %>
+<p class="alert alert-danger"><%= alert %></p>
+<% end %>
+
+<%= form_with(url: dashboard_update_path, method: :PUT, local: false) do%>
+
+<%= hidden_field_tag 'user_id' %>
+<%= hidden_field_tag 'role_id' %>
+
+<table class="table table-striped table-hover ">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= "#{user.name}" %></td>
+        <td>
+          <%= select_tag "role[#{user.id}]", options_for_select(User.roles, User.roles[user.role]), data: {'user' => user.id} %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('select').on('change', function(){
+      $('#user_id').val($(this).data('user'))
+      $('#role_id').val(this.value)
+      $('form').submit()
+    })
+  })
+</script>
