@@ -15,11 +15,22 @@ class DashboardsController < ApplicationController
       alert = "User #{user.name} couldn't be updated"
       redirect_to  dashboard_path,  alert: alert
     end
+  end
 
+  def delete
+    user = User.find(params[:user_id])
+    if user.comments.destroy_all && user.posts.destroy_all && user.delete
+      redirect_to dashboard_path, notice: "Usuario #{user.name} has been deleted"
+    else
+      redirect_to dashboard_path, alert: "Usuario #{user.name} couldn't be deleted"
+    end
   end
 
   private
     def check
-        :authenticate_user! && current_user.admin?
+      permit = authenticate_user! && current_user.admin?
+      unless permit
+        redirect_to root_path
+      end
     end
 end

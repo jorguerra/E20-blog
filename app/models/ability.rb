@@ -12,6 +12,7 @@ class Ability
       cannot :create, Comment
       can :manage, User
     end
+
     if user.admin?
       can :manage, :all
     else

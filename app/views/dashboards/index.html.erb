@@ -27,6 +27,9 @@
         <td>
           <%= select_tag "role[#{user.id}]", options_for_select(User.roles, User.roles[user.role]), data: {'user' => user.id} %>
         </td>
+        <td>
+          <%= link_to 'Eliminar', dashboard_delete_path(user_id: user.id), method: :delete, data: { confirm: "Estás seguro que deseas eliminar el usuario #{user.name}?" }, class: 'btn btn-sm btn-danger' %>
+        </td>
       </tr>
     <% end %>
   </tbody>
